@@ -1,0 +1,52 @@
+services:
+  openmanus:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: openmanus-app
+    restart: unless-stopped
+    environment:
+      # Configurações básicas
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      # Adicione suas variáveis de ambiente aqui
+      # - GOOGLE_API_KEY=your_api_key_here
+      # - ANTHROPIC_API_KEY=your_anthropic_key_here
+    volumes:
+      # Montar arquivo de configuração
+      - ./config:/app/config:ro
+      # Montar logs (opcional)
+      - ./logs:/app/logs
+      # Montar dados persistentes (opcional)
+      - ./data:/app/data
+    ports:
+      # Expor porta se necessário para APIs futuras
+      - "8000:8000"
+    # Configurações de recursos (ajuste conforme necessário)
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+    # Healthcheck (opcional)
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # Configurações de rede
+    networks:
+      - openmanus-network
+
+networks:
+  openmanus-network:
+    driver: bridge
+
+volumes:
+  # Volumes nomeados para persistência de dados
+  openmanus-logs:
+  openmanus-data:

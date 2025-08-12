@@ -200,3 +200,14 @@ cython_debug/
 
 # node
 node_modules
+
+### Docker ###
+# Docker volumes
+docker-volumes/
+
+# Docker override files
+docker-compose.override.yml
+docker-compose.override.yaml
+
+# Docker build cache
+.docker/
