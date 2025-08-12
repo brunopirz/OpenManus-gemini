@@ -63,14 +63,23 @@ install_system_dependencies() {
         gnupg \
         lsb-release \
         build-essential \
-        python3.12 \
-        python3.12-dev \
-        python3.12-venv \
+        python3 \
+        python3-dev \
+        python3-venv \
         python3-pip \
+        python3-full \
+        python-is-python3 \
         nginx \
         ufw \
         htop \
         tree
+    
+    # Verificar se Python 3 foi instalado corretamente
+    if ! command -v python3 &> /dev/null; then
+        error "Python 3 não foi instalado corretamente"
+    fi
+    
+    log "Python $(python3 --version) instalado com sucesso"
     
     log "Dependências do sistema instaladas com sucesso!"
 }
@@ -100,17 +109,21 @@ install_docker() {
     log "Docker instalado com sucesso!"
 }
 
-# Função para instalar uv (gerenciador de pacotes Python)
+# Função para instalar uv (gerenciador de pacotes Python) - OPCIONAL
 install_uv() {
     log "Instalando uv (gerenciador de pacotes Python)..."
     
-    curl -LsSf https://astral.sh/uv/install.sh | sh
-    
-    # Adicionar uv ao PATH
-    echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
-    export PATH="$HOME/.cargo/bin:$PATH"
-    
-    log "uv instalado com sucesso!"
+    # Tentar instalar uv, mas não falhar se não conseguir
+    if curl -LsSf https://astral.sh/uv/install.sh | sh; then
+        # Adicionar uv ao PATH
+        echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
+        export PATH="$HOME/.cargo/bin:$PATH"
+        log "uv instalado com sucesso!"
+        return 0
+    else
+        warn "Falha ao instalar uv. Continuando com pip padrão..."
+        return 1
+    fi
 }
 
 # Função para criar usuário do sistema
@@ -149,12 +162,42 @@ setup_openmanus() {
     sudo chown -R $OPENMANUS_USER:$OPENMANUS_USER $OPENMANUS_HOME
     
     # Configurar ambiente Python
+    log "Configurando ambiente virtual Python..."
     sudo -u $OPENMANUS_USER bash -c "
         cd $OPENMANUS_HOME/OpenManus
-        python3.12 -m venv venv
+        
+        # Remover ambiente virtual existente se houver
+        if [ -d 'venv' ]; then
+            rm -rf venv
+        fi
+        
+        # Criar novo ambiente virtual
+        python3 -m venv venv
+        
+        # Verificar se o ambiente virtual foi criado
+        if [ ! -f 'venv/bin/activate' ]; then
+            echo 'Erro: Falha ao criar ambiente virtual'
+            exit 1
+        fi
+        
+        # Ativar ambiente virtual
         source venv/bin/activate
-        pip install --upgrade pip
+        
+        # Verificar se a ativação funcionou
+        if [ -z \"\$VIRTUAL_ENV\" ]; then
+            echo 'Erro: Falha ao ativar ambiente virtual'
+            exit 1
+        fi
+        
+        echo 'Ambiente virtual ativado: '\$VIRTUAL_ENV
+        
+        # Atualizar pip
+        python -m pip install --upgrade pip
+        
+        # Instalar dependências
         pip install -r requirements.txt
+        
+        echo 'Dependências instaladas com sucesso!'
     "
     
     log "OpenManus configurado com sucesso!"
@@ -424,7 +467,12 @@ main() {
     # Executar instalação
     install_system_dependencies
     install_docker
-    install_uv
+    
+    # Tentar instalar uv, mas continuar se falhar
+    if ! install_uv; then
+        warn "uv não foi instalado, mas continuando com pip padrão..."
+    fi
+    
     create_system_user
     setup_openmanus
     setup_config
