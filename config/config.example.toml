@@ -1,10 +1,17 @@
-# Global LLM configuration
+# Global LLM configuration - Google Gemini (Default)
 [llm]
-model = "claude-3-7-sonnet-20250219"       # The LLM model to use
-base_url = "https://api.anthropic.com/v1/" # API endpoint URL
-api_key = "YOUR_API_KEY"                   # Your API key
-max_tokens = 8192                          # Maximum number of tokens in the response
-temperature = 0.0                          # Controls randomness
+model = "gemini-2.5-pro"                                              # The LLM model to use
+base_url = "https://generativelanguage.googleapis.com/v1beta/openai/"   # API endpoint URL
+api_key = "YOUR_GOOGLE_API_KEY"                                         # Your Google API key
+max_tokens = 8192                                                       # Maximum number of tokens in the response
+temperature = 0.0                                                       # Controls randomness
+
+# [llm] # Anthropic Claude (Alternative)
+# model = "claude-3-7-sonnet-20250219"       # The LLM model to use
+# base_url = "https://api.anthropic.com/v1/" # API endpoint URL
+# api_key = "YOUR_ANTHROPIC_API_KEY"         # Your Anthropic API key
+# max_tokens = 8192                          # Maximum number of tokens in the response
+# temperature = 0.0                          # Controls randomness
 
 # [llm] # Amazon Bedrock
 # api_type = "aws"                                       # Required
@@ -31,13 +38,20 @@ temperature = 0.0                          # Controls randomness
 # max_tokens = 4096
 # temperature = 0.0
 
-# Optional configuration for specific LLM models
+# Optional configuration for specific LLM models - Google Gemini Vision (Default)
 [llm.vision]
-model = "claude-3-7-sonnet-20250219"       # The vision model to use
-base_url = "https://api.anthropic.com/v1/" # API endpoint URL for vision model
-api_key = "YOUR_API_KEY"                   # Your API key for vision model
-max_tokens = 8192                          # Maximum number of tokens in the response
-temperature = 0.0                          # Controls randomness for vision model
+model = "gemini-2.5-pro"                                          # The vision model to use
+base_url = "https://generativelanguage.googleapis.com/v1beta/openai/"   # API endpoint URL for vision model
+api_key = "YOUR_GOOGLE_API_KEY"                                         # Your Google API key for vision model
+max_tokens = 8192                                                       # Maximum number of tokens in the response
+temperature = 0.0                                                       # Controls randomness for vision model
+
+# [llm.vision] # Anthropic Claude Vision (Alternative)
+# model = "claude-3-7-sonnet-20250219"       # The vision model to use
+# base_url = "https://api.anthropic.com/v1/" # API endpoint URL for vision model
+# api_key = "YOUR_ANTHROPIC_API_KEY"         # Your Anthropic API key for vision model
+# max_tokens = 8192                          # Maximum number of tokens in the response
+# temperature = 0.0                          # Controls randomness for vision model
 
 # [llm.vision] #OLLAMA VISION:
 # api_type = 'ollama'

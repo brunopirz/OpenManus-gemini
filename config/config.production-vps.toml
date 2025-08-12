@@ -1,0 +1,194 @@
+# Configuração de Produção para VPS Ubuntu Server
+# OpenManus - Google Gemini como LLM Principal
+# Otimizado para ambiente de servidor
+# Repositório: https://github.com/brunopirz/OpenManus
+
+# ============================================================================
+# CONFIGURAÇÃO PRINCIPAL DO LLM - GOOGLE GEMINI
+# ============================================================================
+# IMPORTANTE: Para segurança, use variáveis de ambiente para API keys
+# Crie um arquivo .env com: GOOGLE_API_KEY=sua_chave_aqui
+# E altere api_key = "${GOOGLE_API_KEY}" nas seções abaixo
+
+[llm]
+# Google Gemini como modelo principal
+model = "gemini-2.5-pro"                                              # Modelo principal do Google Gemini
+base_url = "https://generativelanguage.googleapis.com/v1beta/openai/"   # Endpoint da API do Google
+api_key = "YOUR_GOOGLE_API_KEY"                                         # Substitua pela sua chave OU use ${GOOGLE_API_KEY}
+max_tokens = 8192                                                       # Máximo de tokens por resposta
+max_input_tokens = 100000                                               # Limite de tokens de entrada (controle de custos)
+temperature = 0.1                                                       # Baixa temperatura para respostas mais consistentes
+api_type = "openai"                                                     # Tipo de API (compatível com OpenAI)
+
+# ============================================================================
+# CONFIGURAÇÃO DO MODELO DE VISÃO - GOOGLE GEMINI
+# ============================================================================
+
+[llm.vision]
+model = "gemini-2.5-pro"                                          # Modelo de visão
+base_url = "https://generativelanguage.googleapis.com/v1beta/openai/"   # Endpoint da API do Google
+api_key = "YOUR_GOOGLE_API_KEY"                                         # Substitua pela sua chave OU use ${GOOGLE_API_KEY}
+max_tokens = 8192                                                       # Máximo de tokens por resposta
+max_input_tokens = 50000                                                # Limite para processamento de imagens
+temperature = 0.1                                                       # Baixa temperatura para análise consistente
+api_type = "openai"                                                     # Tipo de API (compatível com OpenAI)
+
+# ============================================================================
+# CONFIGURAÇÕES ALTERNATIVAS (COMENTADAS)
+# ============================================================================
+
+# OpenAI GPT-4 (Backup/Alternativa)
+# [llm.openai]
+# model = "gpt-4o"
+# base_url = "https://api.openai.com/v1/"
+# api_key = "YOUR_OPENAI_API_KEY"
+# max_tokens = 4096
+# temperature = 0.1
+# api_type = "openai"
+
+# Anthropic Claude (Backup/Alternativa)
+# [llm.claude]
+# model = "claude-3-7-sonnet-20250219"
+# base_url = "https://api.anthropic.com/v1/"
+# api_key = "YOUR_ANTHROPIC_API_KEY"
+# max_tokens = 8192
+# temperature = 0.1
+# api_type = "openai"
+
+# ============================================================================
+# CONFIGURAÇÃO DO SANDBOX (EXECUÇÃO SEGURA DE CÓDIGO)
+# ============================================================================
+
+[sandbox]
+use_sandbox = true                          # Habilitar sandbox para segurança
+image = "python:3.12-slim"                  # Imagem Docker otimizada
+work_dir = "/workspace"                     # Diretório de trabalho no container
+memory_limit = "1g"                         # Limite de memória (ajuste conforme VPS)
+cpu_limit = 1.5                             # Limite de CPU (ajuste conforme VPS)
+timeout = 300                               # Timeout de 5 minutos
+network_enabled = true                      # Permitir acesso à rede
+
+# ============================================================================
+# CONFIGURAÇÃO DO BROWSER (AUTOMAÇÃO WEB)
+# ============================================================================
+
+[browser]
+headless = true                             # Sempre headless em servidor
+disable_security = true                     # Desabilitar recursos de segurança para automação
+extra_chromium_args = [                     # Argumentos otimizados para servidor
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-gpu",
+    "--disable-web-security",
+    "--disable-features=VizDisplayCompositor",
+    "--disable-background-timer-throttling",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-renderer-backgrounding",
+    "--memory-pressure-off"
+]
+max_content_length = 5000                   # Limite de conteúdo para performance
+
+# Configuração de proxy (se necessário)
+# [browser.proxy]
+# server = "http://proxy-server:port"
+# username = "proxy-username"
+# password = "proxy-password"
+
+# ============================================================================
+# CONFIGURAÇÃO DE BUSCA NA WEB
+# ============================================================================
+
+[search]
+engine = "Google"                           # Motor de busca principal
+fallback_engines = ["DuckDuckGo", "Bing"]   # Motores de backup
+retry_delay = 30                            # Delay entre tentativas (segundos)
+max_retries = 3                             # Máximo de tentativas
+lang = "pt"                                 # Idioma português
+country = "br"                              # País Brasil
+
+# ============================================================================
+# CONFIGURAÇÃO DO MCP (MODEL CONTEXT PROTOCOL)
+# ============================================================================
+
+[mcp]
+server_reference = "app.mcp.server"         # Referência do servidor MCP
+
+# Exemplo de servidor MCP personalizado
+# [mcp.servers.custom]
+# type = "stdio"
+# command = "python"
+# args = ["-m", "mcp_server"]
+
+# ============================================================================
+# CONFIGURAÇÃO DE FLUXO DE EXECUÇÃO
+# ============================================================================
+
+[run_flow_config]
+use_data_analysis_agent = true              # Habilitar agente de análise de dados
+
+# ============================================================================
+# CONFIGURAÇÕES DE LOGGING (PRODUÇÃO)
+# ============================================================================
+
+# Nota: Configurações de logging são gerenciadas via código Python
+# Para produção, recomenda-se:
+# - Nível INFO ou WARNING
+# - Rotação de logs
+# - Logs estruturados (JSON)
+# - Monitoramento de logs
+
+# ============================================================================
+# CONFIGURAÇÕES DE SEGURANÇA
+# ============================================================================
+
+# Nota: Para produção, considere:
+# 1. Usar variáveis de ambiente para chaves de API
+# 2. Configurar HTTPS com certificados SSL
+# 3. Implementar rate limiting
+# 4. Configurar firewall adequadamente
+# 5. Monitorar logs de segurança
+# 6. Backup regular das configurações
+
+# ============================================================================
+# CONFIGURAÇÕES DE PERFORMANCE
+# ============================================================================
+
+# Nota: Para otimizar performance em VPS:
+# 1. Ajustar limites de CPU e memória conforme recursos disponíveis
+# 2. Configurar cache de respostas (se implementado)
+# 3. Usar proxy reverso (Nginx) para load balancing
+# 4. Monitorar uso de recursos
+# 5. Configurar swap se necessário
+
+# ============================================================================
+# VARIÁVEIS DE AMBIENTE RECOMENDADAS
+# ============================================================================
+
+# Para maior segurança, defina as seguintes variáveis de ambiente:
+# export GOOGLE_API_KEY="sua_chave_aqui"
+# export OPENAI_API_KEY="sua_chave_openai"  # Se usar como backup
+# export ANTHROPIC_API_KEY="sua_chave_anthropic"  # Se usar como backup
+# export OPENMANUS_ENV="production"
+# export OPENMANUS_LOG_LEVEL="INFO"
+
+# ============================================================================
+# MONITORAMENTO E MÉTRICAS
+# ============================================================================
+
+# Para produção, considere implementar:
+# 1. Health checks HTTP
+# 2. Métricas de performance
+# 3. Alertas de erro
+# 4. Monitoramento de uso de API
+# 5. Dashboard de status
+
+# ============================================================================
+# BACKUP E RECUPERAÇÃO
+# ============================================================================
+
+# Estratégia de backup recomendada:
+# 1. Backup diário das configurações
+# 2. Backup dos logs importantes
+# 3. Backup do estado do workspace
+# 4. Teste regular de recuperação
+# 5. Documentação dos procedimentos
