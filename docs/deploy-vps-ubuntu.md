@@ -27,7 +27,7 @@ Este guia fornece instruções detalhadas para fazer o deploy do OpenManus em um
 
 2. **Baixe e execute o script de instalação**:
    ```bash
-   curl -fsSL https://raw.githubusercontent.com/brunopirz/OpenManus/main/scripts/install-ubuntu-vps.sh | bash
+   curl -fsSL https://raw.githubusercontent.com/brunopirz/OpenManus-gemini/main/scripts/install-ubuntu-vps.sh | bash
    ```
 
 3. **Durante a instalação, você será solicitado a fornecer**:
@@ -81,7 +81,7 @@ sudo useradd -r -s /bin/bash -d /opt/openmanus -m openmanus
 sudo usermod -aG docker openmanus
 
 # Clonar repositório
-sudo git clone https://github.com/brunopirz/OpenManus.git /opt/openmanus/OpenManus
+sudo git clone https://github.com/brunopirz/OpenManus-gemini.git /opt/openmanus/OpenManus
 sudo chown -R openmanus:openmanus /opt/openmanus
 
 # Configurar ambiente Python
@@ -456,8 +456,8 @@ sudo reboot
 
 Para suporte adicional:
 
-- **Documentação oficial**: [GitHub OpenManus](https://github.com/brunopirz/OpenManus)
-- **Issues**: [GitHub Issues](https://github.com/brunopirz/OpenManus/issues)
+- **Documentação oficial**: [GitHub OpenManus](https://github.com/brunopirz/OpenManus-gemini)
+- **Issues**: [GitHub Issues](https://github.com/brunopirz/OpenManus-gemini/issues)
 - **Discord**: [Comunidade OpenManus](https://discord.gg/DYn29wFk9z)
 
 ## Conclusão

@@ -58,7 +58,7 @@ Este diretório contém toda a documentação do projeto OpenManus, incluindo an
 ### 1. Deploy Rápido em VPS Ubuntu 24.x
 ```bash
 # Baixar e executar o script de instalação
-wget https://raw.githubusercontent.com/brunopirz/OpenManus/main/scripts/install-ubuntu-vps.sh
+wget https://raw.githubusercontent.com/brunopirz/OpenManus-gemini/main/scripts/install-ubuntu-vps.sh
 chmod +x install-ubuntu-vps.sh
 sudo ./install-ubuntu-vps.sh
 ```

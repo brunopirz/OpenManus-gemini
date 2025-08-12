@@ -1,7 +1,7 @@
 # Configuração de Produção para VPS Ubuntu Server
 # OpenManus - Google Gemini como LLM Principal
 # Otimizado para ambiente de servidor
-# Repositório: https://github.com/brunopirz/OpenManus
+# Repositório: https://github.com/brunopirz/OpenManus-gemini
 
 # ============================================================================
 # CONFIGURAÇÃO PRINCIPAL DO LLM - GOOGLE GEMINI

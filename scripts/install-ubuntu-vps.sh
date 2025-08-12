@@ -138,7 +138,7 @@ setup_openmanus() {
     
     # Clonar repositório
     if [ ! -d "$OPENMANUS_HOME/OpenManus" ]; then
-        sudo git clone https://github.com/brunopirz/OpenManus.git $OPENMANUS_HOME/OpenManus
+        sudo git clone https://github.com/brunopirz/OpenManus-gemini.git $OPENMANUS_HOME/OpenManus
     else
         log "Repositório já existe. Atualizando..."
         cd $OPENMANUS_HOME/OpenManus

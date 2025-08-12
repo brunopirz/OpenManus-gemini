@@ -11,7 +11,7 @@ Configurar o Google Gemini como LLM padrão e atualizar todas as referências do
 
 ### Repositório Atualizado
 - **Anterior**: `https://github.com/FoundationAgents/OpenManus`
-- **Novo**: `https://github.com/brunopirz/OpenManus`
+- **Novo**: `https://github.com/brunopirz/OpenManus-gemini`
 
 ### Arquivos Atualizados
 1. **`scripts/install-ubuntu-vps.sh`**
@@ -157,7 +157,7 @@ fi
 ## 📋 Checklist de Verificação
 
 ### ✅ Repositório
-- [x] URLs atualizadas para `brunopirz/OpenManus`
+- [x] URLs atualizadas para `brunopirz/OpenManus-gemini`
 - [x] Scripts de instalação atualizados
 - [x] Documentação atualizada
 - [x] Links de suporte atualizados
@@ -198,11 +198,11 @@ fi
 Para dúvidas sobre as configurações:
 - **Documentação**: [docs/configuracao-api-keys.md](./configuracao-api-keys.md)
 - **Deploy**: [docs/deploy-vps-ubuntu.md](./deploy-vps-ubuntu.md)
-- **Issues**: [GitHub Issues](https://github.com/brunopirz/OpenManus/issues)
+- **Issues**: [GitHub Issues](https://github.com/brunopirz/OpenManus-gemini/issues)
 
 ---
 
 **OpenManus** - Configuração atualizada e otimizada
 
 *Alterações realizadas em: $(date +%Y-%m-%d)*
-*Repositório: https://github.com/brunopirz/OpenManus*
+*Repositório: https://github.com/brunopirz/OpenManus-gemini*

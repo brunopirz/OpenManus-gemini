@@ -196,10 +196,10 @@ Para problemas com configuração de API keys:
 1. **Verifique a documentação** do provedor da API
 2. **Consulte os logs** do sistema
 3. **Teste a conectividade** com o script de monitoramento
-4. **Abra uma issue** no [repositório](https://github.com/brunopirz/OpenManus/issues)
+4. **Abra uma issue** no [repositório](https://github.com/brunopirz/OpenManus-gemini/issues)
 
 ---
 
 **OpenManus** - Configuração flexível e segura de APIs LLM
 
-*Documentação atualizada para o repositório: https://github.com/brunopirz/OpenManus*
+*Documentação atualizada para o repositório: https://github.com/brunopirz/OpenManus-gemini*
